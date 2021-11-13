@@ -29,6 +29,10 @@ Generator::~Generator(){
 Tile* Generator::getTile(int x, int y){
     return &_tiles[(x*_width) + y];
 }
+/* get width */
+int Generator::getWidth(){
+    return _width;
+}
 /* increase and decrease the resolution of the generation */
 void Generator::increaseScale(){
     _bias += 0.1f;

@@ -22,6 +22,8 @@ public:
     void decreaseScale();
 
     Tile* getTile(int x, int y);
+
+    int getWidth();
 private:
     /* Holds all tiles in terrain */
     static const int _width = 128;

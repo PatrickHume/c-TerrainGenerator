@@ -6,6 +6,8 @@
 Renderer::Renderer(){
     _viewingAngle = 1;
     _rotationAngle = 0;
+    _viewX = 0;
+    _viewY = 0;
 
     _rotationSin = sin(_rotationAngle);
     _rotationCos = cos(_rotationAngle);
@@ -117,7 +119,18 @@ int Renderer::renderFrame(){
                     case SDLK_d:
                         increaseRotationAngle();
                         break;
-
+                    case SDLK_UP: 
+                        _viewY -= 1;
+                        break;
+                    case SDLK_DOWN: 
+                        _viewY += 1;
+                        break;
+                    case SDLK_LEFT: 
+                        _viewX += 1;
+                        break;
+                    case SDLK_RIGHT: 
+                        _viewX -= 1;
+                        break;
                     default:
                         break;
             }
@@ -156,6 +169,8 @@ int Renderer::renderTerrain(){
 
     /* Get the Size of drawing surface */
     SDL_RenderGetViewport(renderer, &darea);
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
     SDL_RenderClear(renderer);
 
     rect.w = _pixelSize;
@@ -183,7 +198,7 @@ int Renderer::renderTerrain(){
             int x = abs(x_1 - flip_x);
             int y = abs(y_1 - flip_y);
 
-            Tile* tile = generator->getTile(x,y);
+            Tile* tile = generator->getTile(abs((x+_viewX)%generator->getWidth()),abs((y+_viewY)%generator->getWidth()));
 
             rect.x = (x * _pixelSize) - _boardSize*0.5;
             rect.y = (y * _pixelSize) - _boardSize*0.5; 

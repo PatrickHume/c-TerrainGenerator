@@ -33,6 +33,9 @@ private:
     float _rotationSin;
     float _rotationCos;
 
+    int _viewX;
+    int _viewY;
+
     int done;
     Generator *generator;
     SDL_Window *window;
