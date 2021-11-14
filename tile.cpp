@@ -1,5 +1,13 @@
 #include "tile.h"
 
+#define colourDEEPWATER _r=15; _g=94; _b=156;
+#define colourWATER _r=35; _g=137; _b=218;
+#define colourMOSS _r=74; _g=93; _b=35;
+#define colourSAND _r=194, _g=178, _b=128;
+#define colourSTONE _r=145; _g=142; _b=133;
+
+static const int waterLevel = 13;
+
 /* Tile */
 /* Constructor */
 Tile::Tile(int x,int y,int z){
@@ -50,8 +58,20 @@ void Tile::setG(int g){
 void Tile::setB(int b){
     _b = b;
 }
-void Tile::update(){
-
+void Tile::colour(){
+    if(_z <= waterLevel-1){
+        colourDEEPWATER;
+        _z = waterLevel;
+    }else if(_z <= waterLevel){
+        colourWATER;
+        _z = waterLevel;
+    }else if(_z <= waterLevel+2){
+        colourSAND;
+    }else if(_z <= waterLevel+10){
+        colourMOSS;
+    }else{
+        colourSTONE;
+    }
 }
 
 /* Tree - tile type not yet used */

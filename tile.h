@@ -25,7 +25,7 @@ public:
     void setB(int b);
 
     void setZ(int z);
-    void update();
+    void colour();
 private:
     int _x;
     int _y;

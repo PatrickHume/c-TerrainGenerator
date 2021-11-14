@@ -4,8 +4,8 @@
 /* Renderer */
 /* Constructor */
 Renderer::Renderer(){
-    _viewingAngle = 1;
-    _rotationAngle = 0;
+    _viewingAngle = 0.5;
+    _rotationAngle = 0.5;
     _viewX = 0;
     _viewY = 0;
 
@@ -63,7 +63,7 @@ void Renderer::decreaseAngle(){
 }
 void Renderer::increaseRotationAngle(){
     _rotationAngle += 0.1;
-    if(_rotationAngle > 6.3){
+    if(_rotationAngle > 6.2){
         _rotationAngle = 0;
     }
     _rotationSin = sin(_rotationAngle);
@@ -72,7 +72,7 @@ void Renderer::increaseRotationAngle(){
 void Renderer::decreaseRotationAngle(){
     _rotationAngle -= 0.1;
     if(_rotationAngle < 0){
-        _rotationAngle = 6.3;
+        _rotationAngle = 6.2;
     }
     _rotationSin = sin(_rotationAngle);
     _rotationCos = cos(_rotationAngle);
@@ -118,6 +118,10 @@ int Renderer::renderFrame(){
                         break;
                     case SDLK_d:
                         increaseRotationAngle();
+                        break;
+                    case SDLK_1: 
+                        generator->generateSeed();
+                        generator->generate();
                         break;
                     case SDLK_UP: 
                         _viewY -= 1;
@@ -203,8 +207,8 @@ int Renderer::renderTerrain(){
             rect.x = (x * _pixelSize) - _boardSize*0.5;
             rect.y = (y * _pixelSize) - _boardSize*0.5; 
             
-            rect.x *= 0.8;
-            rect.y *= 0.8;
+            //rect.x *= 0.9;
+            //rect.y *= 0.9;
 
             int xRotated = rect.x * _rotationCos - rect.y * _rotationSin;
             int yRotated = rect.x * _rotationSin + rect.y * _rotationCos;
@@ -224,9 +228,16 @@ int Renderer::renderTerrain(){
             rect.h = tile->getZ()*(1-_viewingAngle)*10 + _pixelSize;
 
             rect.y -= tile->getZ()*(1-_viewingAngle)*10;
+
+
             
-            SDL_SetRenderDrawColor(renderer, tile->getR(), tile->getG(), tile->getB(), 0xFF);
-            SDL_RenderFillRect(renderer, &rect);    
+            if(x_1 == 0 || y_1 == 0 || x_1 == _viewWidth-1 || y_1 == _viewWidth-1){
+                rect.y += _pixelSize;
+                SDL_SetRenderDrawColor(renderer, 10, 10, 10, 0xFF);
+            }else{
+                SDL_SetRenderDrawColor(renderer, tile->getR(), tile->getG(), tile->getB(), 0xFF);
+            }
+            SDL_RenderFillRect(renderer, &rect);
         }
     }
 

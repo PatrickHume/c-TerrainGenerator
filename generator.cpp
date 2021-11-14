@@ -95,10 +95,7 @@ int Generator::generate() {
             Tile* tile = getTile(x,y);
 
             tile->setZ(noise*100);
-            int colour = noise*255;
-            tile->setR(colour);
-            tile->setG(colour);
-            tile->setB(colour);
+            tile->colour();
         }
     }
     return 0;
