@@ -26,7 +26,7 @@ public:
     int getWidth();
 private:
     /* Holds all tiles in terrain */
-    static const int _width = 128;
+    static const int _width = 512;
     int _heightRange;
     int _log;
     int *_seed;

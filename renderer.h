@@ -23,8 +23,8 @@ public:
     void increaseRotationAngle();
     void decreaseRotationAngle();
 private:
-    static const int _viewWidth = 128;
-    static const int _pixelSize = 4;
+    static const int _viewWidth = 256;
+    static const int _pixelSize = 2;
     static const int _boardSize = _viewWidth*_pixelSize;
     static const int _screenSize = _boardSize*1.5;
 

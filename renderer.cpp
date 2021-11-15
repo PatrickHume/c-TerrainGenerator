@@ -102,18 +102,18 @@ int Renderer::renderFrame(){
                     case SDLK_q:
                         generator->increaseScale();
                         break;
-                    case SDLK_a:
+                    case SDLK_e:
                         generator->decreaseScale();
                         break;
 
-                    case SDLK_w:
+                    case SDLK_s:
                         decreaseAngle();
                         break;
-                    case SDLK_s:
+                    case SDLK_w:
                         increaseAngle();
                         break;
 
-                    case SDLK_e:
+                    case SDLK_a:
                         decreaseRotationAngle();
                         break;
                     case SDLK_d:
@@ -124,16 +124,16 @@ int Renderer::renderFrame(){
                         generator->generate();
                         break;
                     case SDLK_UP: 
-                        _viewY -= 1;
+                        _viewY -= 8;
                         break;
                     case SDLK_DOWN: 
-                        _viewY += 1;
+                        _viewY += 8;
                         break;
                     case SDLK_LEFT: 
-                        _viewX += 1;
+                        _viewX -= 8;
                         break;
                     case SDLK_RIGHT: 
-                        _viewX -= 1;
+                        _viewX += 8;
                         break;
                     default:
                         break;
@@ -225,9 +225,9 @@ int Renderer::renderTerrain(){
             rect.x -= _pixelSize*0.5;
             rect.y -= _pixelSize*0.5;
 
-            rect.h = tile->getZ()*(1-_viewingAngle)*10 + _pixelSize;
+            rect.h = tile->getZ()*(1-_viewingAngle)*_pixelSize + _pixelSize;
 
-            rect.y -= tile->getZ()*(1-_viewingAngle)*10;
+            rect.y -= tile->getZ()*(1-_viewingAngle)*_pixelSize;
 
 
             
