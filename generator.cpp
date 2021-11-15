@@ -10,7 +10,7 @@ Generator::Generator(){
     _seed = (int*)malloc((_width * _width) * sizeof(int));
     _tiles = (Tile*)malloc((_width * _width) * sizeof(Tile));
     _log = log2(_width);
-    _bias = 1.6f;
+    _bias = 1.7f;
 
     for(int x = 0; x < _width; x++){
         for(int y = 0; y < _width; y++){
@@ -71,7 +71,15 @@ int Generator::generate() {
             float noise = 0.0f;
             float scaleAcc = 0.0f;
             float scale = 1.0f;
-            for(int n = 0; n < nOctaves; n++){
+
+            /* skip first few iterations for less volatile terrain */
+            const int skip = 3;
+            for(int n = 0; n < skip; n++){
+                scaleAcc += scale;
+                scale = scale / _bias;
+            }
+
+            for(int n = skip; n < nOctaves; n++){
                 int pitch = _width >> n;
 
                 int sampleX1 = (x/pitch) * pitch;

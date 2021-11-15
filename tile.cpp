@@ -1,6 +1,6 @@
 #include "tile.h"
 
-static const int waterLevel = 100;
+static const int waterLevel = 14;
 
 /* Tile */
 /* Constructor */
@@ -42,6 +42,12 @@ int Tile::getB(){
 /* setters */
 void Tile::setZ(int z){
     _z = z;
+    /* shift world waterlevel to be at height 0 */
+    _z -= waterLevel;
+    if(_z < 0){
+        _z = 0;
+    }
+    _z *= 2;
 }
 void Tile::setR(int r){
     _r = r;
@@ -53,27 +59,25 @@ void Tile::setB(int b){
     _b = b;
 }
 void Tile::updateColour(){
-    if(_z <= waterLevel-1){
+    if(_z == 0){
         colour(DEEPWATER);
-        _z = waterLevel;
-    }else if(_z <= waterLevel){
+    }else if(_z <= 2){
         colour(WATER);
-        _z = waterLevel;
-    }else if(_z <= waterLevel+10){
+    }else if(_z <= 5){
         colour(DARKSAND);
-    }else if(_z <= waterLevel+20){
+    }else if(_z <= 10){
         colour(SAND);
-    }else if(_z <= waterLevel+22){
+    }else if(_z <= 12){
         colour(LIGHTSAND);
-    }else if(_z <= waterLevel+24){
+    }else if(_z <= 24){
         colour(MOSS);
-    }else if(_z <= waterLevel+50){
+    }else if(_z <= 30){
         colour(DARKMOSS);
-    }else if(_z <= waterLevel+60){
+    }else if(_z <= 38){
         colour(DARKSTONE);
-    }else if(_z <= waterLevel+70){
+    }else if(_z <= 45){
         colour(STONE);
-    }else if(_z <= waterLevel+80){
+    }else if(_z <= 50){
         colour(LIGHTSTONE);
     }else{
         colour(SNOW);

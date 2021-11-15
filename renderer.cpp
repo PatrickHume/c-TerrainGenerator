@@ -206,9 +206,6 @@ int Renderer::renderTerrain(){
 
             rect.x = (x * _pixelSize) - _boardSize*0.5;
             rect.y = (y * _pixelSize) - _boardSize*0.5; 
-            
-            //rect.x *= 0.9;
-            //rect.y *= 0.9;
 
             int xRotated = rect.x * _rotationCos - rect.y * _rotationSin;
             int yRotated = rect.x * _rotationSin + rect.y * _rotationCos;
@@ -225,18 +222,17 @@ int Renderer::renderTerrain(){
             rect.x -= _pixelSize*0.5;
             rect.y -= _pixelSize*0.5;
 
-            rect.h = tile->getZ()*(1-_viewingAngle)*_pixelSize + _pixelSize;
-
+            rect.h = tile->getZ()*(1-_viewingAngle)*_pixelSize + _pixelSize + 5;
             rect.y -= tile->getZ()*(1-_viewingAngle)*_pixelSize;
 
-
-            
+            /* draw side of board if drawing edge tile */
             if(x_1 == 0 || y_1 == 0 || x_1 == _viewWidth-1 || y_1 == _viewWidth-1){
                 rect.y += _pixelSize;
-                SDL_SetRenderDrawColor(renderer, 10, 10, 10, 0xFF);
+                SDL_SetRenderDrawColor(renderer, 50, 50, 50, 0xFF);
             }else{
                 SDL_SetRenderDrawColor(renderer, tile->getR(), tile->getG(), tile->getB(), 0xFF);
             }
+            /* draw tile */
             SDL_RenderFillRect(renderer, &rect);
         }
     }
